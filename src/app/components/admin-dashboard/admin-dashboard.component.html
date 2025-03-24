@@ -1,0 +1,293 @@
+<!-- src/app/components/admin/admin-dashboard.component.html -->
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit Gym' : 'Admin Dashboard - Create Gym' }}</h2>
+
+  <form [formGroup]="gymForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <!-- Basic Gym Information -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h4>Basic Information</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Gym Name</label>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('name')?.touched && gymForm.get('name')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('name')?.errors?.['required']">
+                Gym name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Owner Name</label>
+              <input
+                type="text"
+                formControlName="ownerName"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('ownerName')?.touched && gymForm.get('ownerName')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('ownerName')?.errors?.['required']">
+                Owner name is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Contact Number</label>
+              <input
+                type="text"
+                formControlName="contactNumber"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('contactNumber')?.touched && gymForm.get('contactNumber')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('contactNumber')?.errors?.['required']">
+                Contact number is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input
+                type="text"
+                formControlName="address"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('address')?.touched && gymForm.get('address')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('address')?.errors?.['required']">
+                Address is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Latitude</label>
+              <input
+                type="number"
+                formControlName="latitude"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('latitude')?.touched && gymForm.get('latitude')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('latitude')?.errors?.['required']">
+                Latitude is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Longitude</label>
+              <input
+                type="number"
+                formControlName="longitude"
+                class="form-control"
+                [ngClass]="{'is-invalid': gymForm.get('longitude')?.touched && gymForm.get('longitude')?.invalid}">
+              <div class="invalid-feedback" *ngIf="gymForm.get('longitude')?.errors?.['required']">
+                Longitude is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <button type="submit" class="btn btn-primary me-2" [disabled]="!gymForm.valid">
+              {{ isEditMode ? 'Update Gym' : 'Create Gym' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="onCancel()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Equipment Section -->
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Equipment</h4>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addEquipment()">
+          Add Equipment
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="equipment">
+          <div *ngFor="let equipment of equipment.controls; let i=index" [formGroupName]="i" class="border p-3 mb-3">
+            <div class="row">
+              <div class="col-md-11">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label class="form-label">Name</label>
+                      <input type="text" formControlName="name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <input type="text" formControlName="description" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <label class="form-label">Equipment Image</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        accept="image/*"
+                        (change)="onImageSelected($event, i)">
+                      <input type="hidden" formControlName="imageUrl">
+                      <div *ngIf="equipment.get('imageUrl')?.value" class="mt-2">
+                        <img [src]="equipment.get('imageUrl')?.value"
+                             class="img-thumbnail"
+                             style="max-width: 100px"
+                             alt="Equipment preview">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeEquipment(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trainers Section -->
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Trainers</h4>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addTrainer()">
+          Add Trainer
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="trainers">
+          <div *ngFor="let trainer of trainers.controls; let i=index" [formGroupName]="i" class="border p-3 mb-3">
+            <div class="row">
+              <div class="col-md-11">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Name</label>
+                      <input type="text" formControlName="name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Specialization</label>
+                      <input type="text" formControlName="specialization" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Contact Number</label>
+                      <input type="text" formControlName="contactNumber" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Trainer Image</label>
+                      <input
+                        type="file"
+                        class="form-control"
+                        accept="image/*"
+                        (change)="onTrainerImageSelected($event, i)">
+                      <input type="hidden" formControlName="imageUrl">
+                      <div *ngIf="trainer.get('imageUrl')?.value" class="mt-2">
+                        <img [src]="trainer.get('imageUrl')?.value"
+                             class="img-thumbnail"
+                             style="max-width: 100px"
+                             alt="Trainer preview">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeTrainer(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscription Plans Section -->
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Subscription Plans</h4>
+        <button type="button" class="btn btn-primary btn-sm" (click)="addSubscriptionPlan()">
+          Add Plan
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="subscriptionPlans">
+          <div *ngFor="let plan of subscriptionPlans.controls; let i=index" [formGroupName]="i" class="border p-3 mb-3">
+            <div class="row">
+              <div class="col-md-11">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Name</label>
+                      <input type="text" formControlName="name" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <input type="text" formControlName="description" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Price</label>
+                      <input type="number" formControlName="price" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="mb-3">
+                      <label class="form-label">Duration (months)</label>
+                      <input type="number" formControlName="durationInMonths" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeSubscriptionPlan(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="!gymForm.valid">
+        Create Gym
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

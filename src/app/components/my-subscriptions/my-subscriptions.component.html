@@ -1,0 +1,32 @@
+<div class="subscriptions-container">
+  <h2>My Subscriptions</h2>
+
+  <div *ngIf="loading" class="loading">
+    Loading subscriptions...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="subscriptions-list" *ngIf="!loading && subscriptions.length > 0">
+    <div *ngFor="let sub of subscriptions" class="subscription-card">
+      <h3>{{ sub.subscriptionPlan.name }}</h3>
+      <p>{{ sub.subscriptionPlan.description }}</p>
+      <div class="subscription-details">
+        <p><strong>Start Date:</strong> {{ sub.startDate | date }}</p>
+        <p><strong>End Date:</strong> {{ sub.endDate | date }}</p>
+        <p><strong>Status:</strong> {{ sub.isActive ? 'Active' : 'Inactive' }}</p>
+        <p><strong>Price:</strong> ${{ sub.subscriptionPlan.price }}/month</p>
+      </div>
+      <button *ngIf="sub.isActive" (click)="cancelSubscription(sub.id)" class="cancel-button">
+        Cancel Subscription
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && subscriptions.length === 0" class="no-subscriptions">
+    <p>You don't have any active subscriptions.</p>
+    <button routerLink="/gyms">Browse Gyms</button>
+  </div>
+</div>

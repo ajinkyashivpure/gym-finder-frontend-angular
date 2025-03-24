@@ -1,0 +1,123 @@
+<div class="gym-detail-container" *ngIf="gym">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="content-wrapper">
+      <h1>{{gym.name}}</h1>
+      <div class="gym-meta">
+        <span><i class="bi bi-geo-alt"></i> {{gym.address}}</span>
+        <span><i class="bi bi-telephone"></i> {{gym.contactNumber}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-number">{{gym.equipment.length || 0}}</div>
+      <div class="stat-label">Equipment</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{gym.trainers.length || 0}}</div>
+      <div class="stat-label">Trainers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{gym.subscriptionPlans?.length || 0}}</div>
+      <div class="stat-label">Plans</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-tabs">
+    <nav>
+      <div class="nav nav-tabs" role="tablist">
+        <button class="nav-link active" (click)="activeTab = 'equipment'" [class.active]="activeTab === 'equipment'">
+          Equipment
+        </button>
+        <button class="nav-link" (click)="activeTab = 'trainers'" [class.active]="activeTab === 'trainers'">
+          Trainers
+        </button>
+        <button class="nav-link" (click)="activeTab = 'plans'" [class.active]="activeTab === 'plans'">
+          Membership Plans
+        </button>
+      </div>
+    </nav>
+
+    <div class="tab-content">
+      <!-- Equipment Tab -->
+      <div class="tab-pane" [class.active]="activeTab === 'equipment'" [class.show]="activeTab === 'equipment'" id="equipment">
+        <div class="equipment-grid">
+          <!-- Update the equipment card in gym-detail.component.html -->
+          <div *ngFor="let item of gym.equipment" class="equipment-card">
+            <img [src]="item.imageUrl" [alt]="item.name">
+            <div class="equipment-info">
+              <h3>{{item.name}}</h3>
+              <p>{{item.description}}</p>
+
+              <!-- Add these lines to handle any special labels with proper styling -->
+            </div>
+          </div>
+          <div *ngIf="!gym.equipment || gym.equipment.length === 0" class="no-items">
+            <p>No equipment information available.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trainers Tab -->
+      <div class="tab-pane" [class.active]="activeTab === 'trainers'" [class.show]="activeTab === 'trainers'" id="trainers">
+        <div class="trainers-grid">
+          <div *ngFor="let trainer of gym.trainers" class="trainer-card">
+            <img [src]="trainer.imageUrl" [alt]="trainer.name">
+            <div class="trainer-info">
+              <h3>{{trainer.name}}</h3>
+              <p class="specialization">{{trainer.specialization}}</p>
+              <p class="contact">{{trainer.contactNumber}}</p>
+            </div>
+          </div>
+          <div *ngIf="!gym.trainers || gym.trainers.length === 0" class="no-items">
+            <p>No trainer information available.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plans Tab -->
+      <div class="tab-pane" [class.active]="activeTab === 'plans'" [class.show]="activeTab === 'plans'" id="plans">
+        <div class="plans-grid">
+          <div *ngFor="let plan of gym.subscriptionPlans" class="plan-card">
+            <div class="plan-header">
+              <h3>{{plan.name}}</h3>
+              <div class="price">₹{{plan.price}}</div>
+            </div>
+            <div class="plan-details">
+              <p>{{plan.description}}</p>
+              <p class="duration">{{plan.durationInMonths}} months</p>
+            </div>
+            <button class="btn btn-primary w-100" (click)="subscribeToPlan(plan.id)">
+              Subscribe
+            </button>
+          </div>
+          <div *ngIf="!gym.subscriptionPlans || gym.subscriptionPlans.length === 0" class="no-items">
+            <p>No subscription plans available.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Error messages -->
+  <div *ngIf="successMessage" class="alert alert-success mx-auto mb-4" style="max-width: 1200px">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger mx-auto mb-4" style="max-width: 1200px">
+    {{ errorMessage }}
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="loading">
+  <div class="spinner"></div>
+  <p>Loading gym details...</p>
+</div>
+
+<div class="error-container" *ngIf="error">
+  <p>{{ error }}</p>
+  <button class="btn btn-primary" routerLink="/map">Back to Map</button>
+</div>

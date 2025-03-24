@@ -1,0 +1,403 @@
+.gym-detail-container {
+  padding-top: 64px; /* Account for fixed navbar */
+  min-height: 100vh;
+  background-color: var(--app-dark);
+  color: var(--app-text-light);
+  overflow-y: auto;
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('public/src/assets/gym-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gym-meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.gym-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gym-meta i {
+  color: var(--app-accent);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: -2rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.stat-card {
+  background: var(--app-dark-lighter);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  border: 1px solid var(--app-dark-border);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--app-primary);
+}
+
+.content-tabs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.equipment-grid, .trainers-grid, .plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.equipment-card, .trainer-card, .plan-card {
+  background: var(--app-dark-lighter);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  border: 1px solid var(--app-dark-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.equipment-card:hover, .trainer-card:hover, .plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  border-color: var(--app-primary);
+}
+
+.equipment-card img, .trainer-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.equipment-info, .trainer-info {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.equipment-info h3, .trainer-info h3, .plan-header h3 {
+  color: var(--app-text-light);
+  margin-bottom: 0.5rem;
+}
+
+.equipment-info p, .trainer-info p {
+  color: var(--app-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.plan-card {
+  padding: 2rem;
+  text-align: center;
+}
+
+.price {
+  font-size: 2rem;
+  color: var(--app-primary);
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.nav-tabs {
+  border: none;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.nav-link {
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  color: var(--app-text-muted);
+  background-color: var(--app-dark-lighter);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-link.active {
+  background: var(--app-primary);
+  color: white;
+}
+
+.tab-content {
+  margin-top: 2rem;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.show {
+  display: block;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.plan-details {
+  margin-bottom: 1.5rem;
+}
+
+.plan-details p {
+  margin-bottom: 0.5rem;
+  color: var(--app-text-muted);
+}
+
+.duration {
+  color: var(--app-secondary);
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--app-primary);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--app-primary-dark);
+}
+
+.specialization {
+  color: var(--app-accent);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact::before {
+  content: "📞";
+}
+/* Add these to your gym-detail.component.css file */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding-top: 100px;
+  color: var(--app-text-muted);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(108, 92, 231, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid var(--app-primary);
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding-top: 100px;
+  color: var(--app-danger);
+  text-align: center;
+}
+
+.error-container p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.no-items {
+  grid-column: 1 / -1;
+  padding: 30px;
+  background-color: var(--app-dark-lighter);
+  border-radius: 10px;
+  text-align: center;
+  color: var(--app-text-muted);
+  border: 1px dashed var(--app-dark-border);
+}
+
+/* Better alert styling */
+.alert {
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px auto;
+}
+
+.alert-success {
+  background-color: rgba(0, 184, 148, 0.1);
+  border: 1px solid var(--app-secondary);
+  color: var(--app-secondary);
+}
+
+.alert-danger {
+  background-color: rgba(255, 118, 117, 0.1);
+  border: 1px solid var(--app-danger);
+  color: var(--app-danger);
+}
+/**
+ * Equipment Card Fixes
+ * Add these styles to your gym-detail.component.css file
+ */
+
+/* Container structure to ensure consistent layout */
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Updated equipment card to ensure proper display */
+.equipment-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-dark-lighter);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--app-dark-border);
+  height: 100%;
+  position: relative;
+}
+
+.equipment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-color: var(--app-primary);
+}
+
+/* Image container */
+.equipment-image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 aspect ratio */
+  overflow: hidden;
+}
+
+.equipment-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Info container */
+.equipment-info {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--app-dark-lighter);
+}
+
+.equipment-info h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--app-text-light);
+  margin-bottom: 0.75rem;
+}
+
+.equipment-info p {
+  color: var(--app-text-muted);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* Equipment labels */
+.equipment-label {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: var(--app-primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary label variant */
+.equipment-label.secondary {
+  background-color: var(--app-secondary);
+}
+
+/* Special style overrides for equipment types */
+.equipment-label.lat-pull-down {
+  background-color: var(--app-accent);
+}
+
+.equipment-label.hammer-strength {
+  background-color: var(--app-primary-dark);
+}
+.equipment-card span,
+.equipment-card div[class*="strength"],
+.equipment-card div[class*="pull"],
+.equipment-card div.hammer-strength,
+.equipment-card div.lat-pull-down {
+  background-color: #6c5ce7 !important; /* Using your primary color */
+  color: white !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  margin: 5px 0 !important;
+  font-weight: 500 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}

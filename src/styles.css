@@ -1,0 +1,484 @@
+/* Updated styles.css with improved color scheme and UI elements */
+
+/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --app-primary: #6c5ce7;       /* Main primary color - purple */
+  --app-primary-dark: #5b4dd1;  /* Darker primary for hover states */
+  --app-secondary: #00b894;     /* Secondary color - teal */
+  --app-accent: #fd79a8;        /* Accent color - pink */
+  --app-dark: #1a1a1a;          /* Dark background */
+  --app-dark-lighter: #2a2a2a;  /* Slightly lighter dark */
+  --app-dark-border: #3a3a3a;   /* Border color for dark theme */
+  --app-text-light: #ffffff;    /* Light text */
+  --app-text-muted: #b0b0b0;    /* Muted text */
+  --app-danger: #ff7675;        /* Danger/error color */
+  --app-danger-dark: #e65a5a;   /* Darker version of danger color */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: auto !important;
+}
+
+app-root {
+  display: block;
+  height: auto;
+  min-height: 100%;
+  overflow: auto !important;
+}
+
+.gym-detail-container {
+  padding-top: 64px; /* For fixed navbar */
+  min-height: calc(100vh - 64px);
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* General styles */
+.btn-primary {
+  background-color: var(--app-primary);
+  border-color: var(--app-primary);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--app-primary-dark);
+  border-color: var(--app-primary-dark);
+  box-shadow: 0 0 0 0.25rem rgba(108, 92, 231, 0.25);
+}
+
+.btn-secondary {
+  background-color: var(--app-secondary);
+  border-color: var(--app-secondary);
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: var(--app-dark-lighter);
+  border: 1px solid var(--app-dark-border);
+  color: var(--app-text-light);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom form styles */
+.form-control {
+  background-color: var(--app-dark);
+  border: 1px solid var(--app-dark-border);
+  color: var(--app-text-light);
+}
+
+.form-control:focus {
+  background-color: var(--app-dark);
+  color: var(--app-text-light);
+  border-color: var(--app-primary);
+  box-shadow: 0 0 0 0.25rem rgba(108, 92, 231, 0.25);
+}
+
+/* Map styles */
+.map-container {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Gym list styles */
+.gym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.gym-card {
+  border: 1px solid var(--app-dark-border);
+  border-radius: 12px;
+  padding: 15px;
+  background-color: var(--app-dark-lighter);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.gym-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  border-color: var(--app-primary);
+}
+
+/* Subscription styles */
+.subscription-card {
+  border: 1px solid var(--app-dark-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: var(--app-dark-lighter);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cancel-button {
+  background-color: var(--app-danger);
+}
+
+.cancel-button:hover {
+  background-color: var(--app-danger-dark);
+}
+
+/* Utility classes */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--app-text-muted);
+}
+
+.error-message {
+  color: var(--app-danger);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--app-danger);
+  border-radius: 8px;
+  background-color: rgba(255, 118, 117, 0.1);
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: var(--app-dark);
+  padding: 0 20px;
+  height: 64px;
+  border-bottom: 1px solid var(--app-dark-border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: var(--app-text-light);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand::before {
+  content: "💪";
+  margin-right: 10px;
+  font-size: 1.4rem;
+}
+
+/* Authentication forms */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+}
+
+.auth-card {
+  background: var(--app-dark-lighter);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 15px;
+  border: 1px solid var(--app-dark-border);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--app-text-light);
+}
+
+.auth-card .form-group {
+  margin-bottom: 1rem;
+}
+
+.auth-card .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--app-text-light);
+}
+
+.auth-card .form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--app-dark);
+  border: 1px solid var(--app-dark-border);
+  border-radius: 8px;
+  color: var(--app-text-light);
+  font-size: 1rem;
+}
+
+.auth-card .form-group input:focus {
+  outline: none;
+  border-color: var(--app-primary);
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--app-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.auth-card button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.auth-card button:hover:not(:disabled) {
+  background: var(--app-primary-dark);
+}
+
+.auth-card .error-message {
+  color: var(--app-danger);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.auth-card .signup-link, .auth-card .login-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-card .signup-link a, .auth-card .login-link a {
+  color: var(--app-primary);
+  text-decoration: none;
+}
+
+.auth-card .signup-link a:hover, .auth-card .login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Admin dashboard */
+.admin-dashboard {
+  height: auto;
+  min-height: calc(100vh - 64px);
+  padding-bottom: 100px; /* Add extra padding at bottom */
+  overflow-y: auto !important;
+}
+
+.admin-dashboard .card {
+  background-color: var(--app-dark-lighter);
+  border: 1px solid var(--app-dark-border);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  overflow-y: scroll ;
+}
+
+.admin-dashboard .form-group {
+  margin-bottom: 1.5rem;
+  overflow-y: scroll;
+}
+
+.admin-dashboard label {
+  font-weight: 500;
+  color: var(--app-text-light);
+  margin-bottom: 0.5rem;
+  overflow-y: scroll;
+}
+
+
+/* Map page specific styles */
+/* Reset for map page */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Override container for map page */
+app-gym-map .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px; /* Added minmax to prevent overflow */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--app-dark);
+  color: var(--app-text-light);
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Override map container styles */
+app-gym-map .map-container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+google-map {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Map list container */
+app-gym-map .list-container {
+  background: var(--app-dark-lighter);
+  border-left: 1px solid var(--app-dark-border);
+  overflow-y: auto;
+  height: 100vh;
+  width: 400px;
+  position: fixed;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+}
+
+/* Override card styles for map page */
+app-gym-map .gym-card {
+  background: var(--app-dark);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--app-dark-border);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+app-gym-map .gym-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: var(--app-primary);
+}
+
+app-gym-map .gym-card.active {
+  border-color: var(--app-primary);
+  background-color: rgba(108, 92, 231, 0.1);
+}
+
+/* Search input for map */
+app-gym-map .search-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--app-dark);
+  border: 1px solid var(--app-dark-border);
+  border-radius: 8px;
+  color: var(--app-text-light);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+app-gym-map .search-input:focus {
+  outline: none;
+  border-color: var(--app-primary);
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.25);
+}
+
+app-gym-map .gym-info h3 {
+  color: var(--app-text-light);
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+app-gym-map .address {
+  color: var(--app-text-muted);
+}
+
+app-gym-map .distance {
+  color: var(--app-secondary);
+  font-weight: 500;
+}
+
+app-gym-map .distance-icon {
+  color: var(--app-accent);
+}
+
+/* Fix for list header */
+app-gym-map .list-header {
+  background-color: var(--app-dark-lighter);
+  border-bottom: 1px solid var(--app-dark-border);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+app-gym-map .list-header h2 {
+  color: var(--app-text-light);
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--app-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--app-dark-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--app-primary);
+}
+
+/* Ensure proper height for router outlet container */
+router-outlet + * {
+  display: block;
+  height: 100vh;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  app-gym-map .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60% 40%;
+  }
+
+  app-gym-map .list-container {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    border-top: 1px solid var(--app-dark-border);
+    border-left: none;
+  }
+}
+router-outlet + * {
+  display: block;
+  height: auto !important;
+  min-height: calc(100vh - 64px);
+  overflow: auto !important;
+  position: relative;
+}
+
+.container, .content-wrapper, .card, .card-body {
+  overflow: visible !important;
+}

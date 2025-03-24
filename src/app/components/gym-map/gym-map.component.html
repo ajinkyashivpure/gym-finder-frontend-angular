@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="map-container">
+    <google-map
+      [center]="center"
+      [zoom]="zoom"
+      [options]="mapOptions"
+      width="100%"
+      height="100%">
+      <map-marker
+        *ngFor="let marker of markers"
+        [position]="marker.position"
+        [title]="marker.title"
+        [options]="marker.options"
+        (mapClick)="onMarkerClick(marker)">
+      </map-marker>
+    </google-map>
+  </div>
+
+  <div class="list-container">
+    <div class="list-header">
+      <h2>Nearby Gyms</h2>
+      <div class="search-box">
+        <div class="search-icon">
+          <i class="bi bi-search"></i>
+        </div>
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="Search gyms..."
+          class="search-input">
+      </div>
+    </div>
+
+    <div class="gym-list">
+      <div *ngFor="let gym of sortedMarkers"
+           class="gym-card"
+           [class.active]="selectedGym?.id === gym.info.id"
+           (click)="onMarkerClick(gym)">
+        <div class="gym-info">
+          <h3>{{gym.info.name}}</h3>
+          <p class="address">  <i class="bi bi-geo-alt"></i> {{gym.info.address}}</p>
+          <div class="gym-meta">
+            <div class="distance">
+              <i class="bi bi-signpost-2 distance-icon"></i>
+              {{gym.distance?.toFixed(2)}} km away
+            </div>
+            <div class="view-details">
+              View Details <i class="bi bi-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="sortedMarkers.length === 0" class="no-results">
+        <i class="bi bi-emoji-frown"></i>
+        <p>No gyms found matching your search.</p>
+      </div>
+    </div>
+  </div>
+</div>

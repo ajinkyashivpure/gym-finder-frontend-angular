@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="auth-card">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control">
+        <div class="error-message" *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control">
+        <div class="error-message" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control">
+        <div class="error-message" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+          Password is required
+        </div>
+        <label for="role">Account Type</label>
+        <select
+          id="role"
+          formControlName="role"
+          class="form-control"
+          [ngClass]="{'is-invalid': signupForm.get('role')?.touched && signupForm.get('role')?.invalid}">
+          <option value="">Select your account type</option>
+          <option *ngFor="let role of roles" [value]="role.value">
+            {{ role.label }}
+          </option>
+        </select>
+        <div class="invalid-feedback">Please select an account type</div>
+        <small class="form-text text-muted">
+          Select 'Gym Administrator' if you want to manage your gym on our platform.
+        </small>
+      </div>
+
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="login-link">
+        Already have an account? <a routerLink="/login">Login</a>
+      </div>
+    </form>
+
+    <div *ngIf="showOtpField">
+      <h2>Verify OTP</h2>
+      <form [formGroup]="otpForm" (ngSubmit)="onOtpSubmit()">
+        <div class="form-group">
+          <label for="otp">Enter OTP sent to your email</label>
+          <input
+            type="text"
+            id="otp"
+            formControlName="otp"
+            class="form-control"
+            [ngClass]="{'is-invalid': otpForm.get('otp')?.touched && otpForm.get('otp')?.invalid}">
+          <div class="invalid-feedback">Please enter valid OTP</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!otpForm.valid">
+          Verify OTP
+        </button>
+
+        <button type="button" class="btn btn-link w-100" (click)="resendOTP()">
+          Resend OTP
+        </button>
+      </form>
+    </div>
+
+    <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>

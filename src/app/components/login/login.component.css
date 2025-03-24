@@ -1,0 +1,14 @@
+.signup-link {
+  color: #00b894;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signup-link a {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}

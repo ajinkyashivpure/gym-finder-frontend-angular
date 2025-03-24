@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchTerm"
+          placeholder="Search gyms..."
+          (keyup.enter)="onSearch()">
+        <button class="btn btn-primary" (click)="onSearch()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let gym of gyms">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ gym.name }}</h5>
+          <p class="card-text">
+            <i class="bi bi-geo-alt"></i> {{ gym.address }}
+          </p>
+          <p class="card-text">
+            <i class="bi bi-telephone"></i> {{ gym.contactNumber }}
+          </p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <button class="btn btn-outline-primary w-100" [routerLink]="['/gym', gym.id]">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
